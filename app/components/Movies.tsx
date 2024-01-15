@@ -5,6 +5,7 @@ import ControlBtn from './ControlBtn';
 import { Movie, Country, Genre } from './Types';
 import { imdb } from './svgs';
 import { getMovieById, getMovies, path } from '../lib/util';
+import Link from 'next/link';
 
 
 
@@ -98,7 +99,10 @@ const Movies = () => {
               ))}
             </p>
             <p className="text-xs font-bold truncate w-60 sm:w-auto">
+              <Link href={`/pages/movie/${movie.id}`}>
               {movie.original_title}
+
+              </Link>
             </p>
             <p className="text-xs">
               {imdb}
