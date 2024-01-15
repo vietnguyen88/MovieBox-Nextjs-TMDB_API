@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TvSeries from './components/TvSeries';
 import Movies from './components/Movies';
+import FeaturedCast from './components/FeaturedCast';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <Movies />
       <TvSeries />
+      <FeaturedCast/>
     </main>
   );
 }

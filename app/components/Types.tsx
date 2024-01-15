@@ -28,3 +28,9 @@ export interface TvSerie {
   genres: Genre[];
   production_countries: Country[];
 }
+
+export interface Cast {
+  id:number;
+  profile_path:string;
+  name: string;
+}
