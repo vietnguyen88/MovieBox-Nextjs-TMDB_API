@@ -3,46 +3,12 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import ControlBtn from './ControlBtn';
 import { Movie, Country, Genre } from './Types';
-import { options } from './Config';
 import { imdb } from './svgs';
-import { resolve } from 'path';
-import { rejects } from 'assert';
-import { promiseHooks } from 'v8';
+import { getMovieById, getMovies, path } from '../lib/util';
 
-const path = 'https://image.tmdb.org/t/p/original';
 
-async function getData() {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/discover/movie`,
-    options
-  );
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
 
-  return res.json();
-}
-
-async function getDataById(id: number) {
-  const res = await fetch(`https://api.themoviedb.org/3/movie/${id}`, options);
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data by Id');
-  }
-
-  return res.json();
-}
-
-async function fetchData(url: string) {
-  const res = await fetch(url, options);
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data by Id');
-  }
-
-  return res.json();
-}
 
 const Movies = () => {
   const [movies, setMovies] = useState<Movie[] | undefined>([]);
@@ -50,7 +16,7 @@ const Movies = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   useEffect(() => {
     const allMoviesPromise = new Promise<Movie[]>((resolve, reject) => {
-      getData()
+      getMovies()
         .then((data) => {
           resolve(data.results);
         })
@@ -58,7 +24,7 @@ const Movies = () => {
     });
     allMoviesPromise.then((data) => {
       const allPromises = data.map(async (movie: Movie) => {
-        return await getDataById(movie.id).then((item) => item);
+        return await getMovieById(movie.id).then((item) => item);
       });
       Promise.all(allPromises).then((movies) => setMovies(movies));
     });
@@ -94,7 +60,9 @@ const Movies = () => {
   return (
     <div className="px-5 md:w-4/5 md:mx-auto">
       <h1 className="py-8 font-bold md:text-3xl flex justify-between items-center">
-        Movies{' '}
+        <div>
+        Movies <span className='text-xs font-normal text-red-600'>See more {">"}</span>
+        </div>
         <ControlBtn
           handleNextBtn={handleNextBtn}
           handlePrevBtn={handlePrevBtn}

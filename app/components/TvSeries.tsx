@@ -3,30 +3,9 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import ControlBtn from './ControlBtn';
 import { TvSerie, Country, Genre } from './Types';
-import { options } from './Config';
 import { imdb } from './svgs';
+import { getTvSerieById,getTvSeries,path } from '../lib/util'; 
 
-const path = 'https://image.tmdb.org/t/p/original';
-
-async function getData() {
-  const res = await fetch(`https://api.themoviedb.org/3/discover/tv`, options);
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-}
-
-async function getDataById(id: number) {
-  const res = await fetch(`https://api.themoviedb.org/3/tv/${id}`, options);
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data by Id');
-  }
-
-  return res.json();
-}
 
 const TvSeries = () => {
   const [tvSeries, setTvSeries] = useState<TvSerie[] | undefined>();
@@ -34,7 +13,7 @@ const TvSeries = () => {
 
   useEffect(() => {
     const allMoviesPromise = new Promise<TvSerie[]>((resolve, reject) => {
-      getData()
+      getTvSeries()
         .then((data) => {
           resolve(data.results);
         })
@@ -42,7 +21,7 @@ const TvSeries = () => {
     });
     allMoviesPromise.then((data) => {
       const allPromises = data.map(async (movie: TvSerie) => {
-        return await getDataById(movie.id).then((item) => item);
+        return await getTvSerieById(movie.id).then((item) => item);
       });
       Promise.all(allPromises).then((tvseries) => setTvSeries(tvseries));
     });

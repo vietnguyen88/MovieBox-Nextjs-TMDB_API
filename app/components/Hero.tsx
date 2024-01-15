@@ -1,27 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import {getData} from '../lib/util'
+import { Movie } from './Types';
 
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NWM1YzZkZmI2OTVjOGY2YzBmODM5MmIzZTM5NjU0ZiIsInN1YiI6IjYxNDk5ZWVmNzAzMDlmMDAyYWY5NjIxZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-Dq1lmEy43LTcNIKvAnY9UEEk6OTOnPufOUq3hVWDiQ',
-  },
-};
-async function getData() {
-  const res = await fetch(
-    'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1',
-    options
-  );
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data ');
-  }
-
-  return res.json();
-}
 
 const Hero = () => {
   const [movies, setMovies] = useState<Movie[]>();
@@ -30,14 +11,6 @@ const Hero = () => {
   useEffect(() => {
     getData().then((data) => setMovies(data.results));
   }, []);
-
-  interface Movie {
-    id: number;
-    vote_average: number;
-    overview: string;
-    original_title: string;
-    poster_path: string;
-  }
 
   return (
     <div className="w-full h-[500px] sm:h-screen relative">
