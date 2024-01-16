@@ -1,5 +1,45 @@
 
-export const path = 'https://image.tmdb.org/t/p/original';
+export const path = 'https://image.tmdb.org/t/p/w780';
+export const path_original = 'https://image.tmdb.org/t/p/original';
+
+export const path_500 = 'https://image.tmdb.org/t/p/w500';
+
+//  "backdrop_sizes": [
+//     "w300",
+//     "w780",
+//     "w1280",
+//     "original"
+//   ],
+//   "logo_sizes": [
+//     "w45",
+//     "w92",
+//     "w154",
+//     "w185",
+//     "w300",
+//     "w500",
+//     "original"
+//   ],
+//   "poster_sizes": [
+//     "w92",
+//     "w154",
+//     "w185",
+//     "w342",
+//     "w500",
+//     "w780",
+//     "original"
+//   ],
+//   "profile_sizes": [
+//     "w45",
+//     "w185",
+//     "h632",
+//     "original"
+//   ],
+//   "still_sizes": [
+//     "w92",
+//     "w185",
+//     "w300",
+//     "original"
+//   ]
 
 const options = {
     method: 'GET',
@@ -38,6 +78,15 @@ export async function getMovieById(id: number) {
         throw new Error('Failed to fetch data by Id');
     }
     return res.json();
+}
+
+export async function getVideos(id:number) {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos`,options)
+    if (!res.ok) {
+        throw new Error('Failed to fetch data by Id');
+    }
+    return res.json()
+    
 }
 
 

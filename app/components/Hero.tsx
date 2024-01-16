@@ -18,7 +18,7 @@ const Hero = () => {
         <div
           className="w-full h-full duration-500 after:bg-black after:w-full after:h-full after:absolute after:top-0 after:left-0 after:opacity-50"
           style={{
-            backgroundImage: ` url(https://image.tmdb.org/t/p/original${movies[currentIndex].poster_path})`,
+            backgroundImage: ` url(https://image.tmdb.org/t/p/w780${movies[currentIndex].poster_path})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',

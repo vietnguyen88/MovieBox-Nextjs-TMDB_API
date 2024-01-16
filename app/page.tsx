@@ -9,12 +9,12 @@ import Footer from './components/Footer';
 export default function Home() {
   return (
     <main className="">
-      <Navbar />
+      {/* <Navbar /> */}
       <Hero />
       <Movies />
       {/* <TvSeries />
       <FeaturedCast/> */}
-      <Footer/>
+      {/* <Footer/> */}
     </main>
   );
 }
