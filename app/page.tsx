@@ -12,8 +12,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Movies />
-      <TvSeries />
-      <FeaturedCast/>
+      {/* <TvSeries />
+      <FeaturedCast/> */}
       <Footer/>
     </main>
   );
